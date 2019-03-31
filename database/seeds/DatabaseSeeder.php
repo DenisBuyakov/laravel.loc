@@ -11,37 +11,37 @@ class DatabaseSeeder extends Seeder
 	 */
 	public function run()
 	{
-//		$employeeTable='employee';
-		//$departmentTable='department';
+//		$employeeTable='employees';
+		//$departmentTable='departments';
 
-		$employeeTableIsExists = Schema::hasTable('employee');
+		$employeeTableIsExists = Schema::hasTable('employees');
 		if ($employeeTableIsExists) {
-			Schema::drop('employee');
+			Schema::drop('employees');
 		}
 
-		$departmentTableIsExists = Schema::hasTable('department');
+		$departmentTableIsExists = Schema::hasTable('departments');
 		if ($departmentTableIsExists) {
-			Schema::drop('department');
+			Schema::drop('departments');
 		}
 
-		Schema::create('department', function ($table) {
+		Schema::create('departments', function ($table) {
 			$table->integer('id');
-			$table->string('department');
+			$table->string('departments');
 			$table->primary('id');
 		});
 		$departmentData = $this->csvFileToArray('data/department_table.csv');
-		DB::table('department')->insert($departmentData);
+		DB::table('departments')->insert($departmentData);
 
-		Schema::create('employee', function ($table) {
+		Schema::create('employees', function ($table) {
 			$table->integer('id');
 			$table->integer('dep_id');
 			$table->string('full_name');
 			$table->integer('salary');
 			$table->primary('id');
-			$table->foreign('dep_id')->references('id')->on('department');
+			$table->foreign('dep_id')->references('id')->on('departments');
 		});
 		$employeeData = $this->csvFileToArray('data/employee_table.csv');
-		DB::table('employee')->insert($employeeData);
+		DB::table('employees')->insert($employeeData);
 	}
 
 	private function csvFileToArray(string $filePatch) : array
