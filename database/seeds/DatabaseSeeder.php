@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
 
 		Schema::create('departments', function ($table) {
 			$table->integer('id');
-			$table->string('departments');
+			$table->string('department');
 			$table->primary('id');
 		});
 		$departmentData = $this->csvFileToArray('data/department_table.csv');
